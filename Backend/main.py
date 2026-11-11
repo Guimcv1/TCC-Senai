@@ -1,23 +1,26 @@
 from fastapi import FastAPI
-from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base
-from dotenv import load_dotenv
-import os
+from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
+from src.routes import api_router
 
-load_dotenv()
+app = FastAPI(
+    title="Sabor & Cia API",
+    version="1.0.0",
+    description="API de pedidos, cardápio, estoque e entregas da lanchonete.",
+)
 
-db_user = os.getenv("DB_USER")
-db_password = os.getenv("DB_PASSWORD")
-db_host = os.getenv("DB_HOST")
-db_port = os.getenv("DB_PORT")
-db_name = os.getenv("DB_NAME")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-URL = f"postgresql+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
 
-engine = create_engine(URL, echo=True)
+@app.get("/health", tags=["health"])
+def health() -> dict[str, str]:
+    return {"status": "ok"}
 
-class Base(declarative_base):
-    pass
 
+app.include_router(api_router, prefix="/api")
