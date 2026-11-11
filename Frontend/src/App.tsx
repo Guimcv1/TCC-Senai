@@ -73,9 +73,9 @@ function App() {
   return (
     <div className="app-shell">
       <aside className="sidebar">
-        <div className="brand"><div className="brand-mark">S</div><div><strong>Sabor & Cia</strong><span>Gestão da lanchonete</span></div></div>
+        <div className="brand"><div className="brand-mark">S</div><div><strong>Lanchonete</strong><span>Gestão da lanchonete</span></div></div>
         <nav className="main-nav"><p className="nav-label">MENU PRINCIPAL</p>{pages.slice(0, 6).map((item) => <NavItem key={item} page={item} active={page} onClick={navigate} count={item === 'Pedidos' ? orders.length : undefined} />)}<p className="nav-label space-label">OPERAÇÃO</p>{pages.slice(6).map((item) => <NavItem key={item} page={item} active={page} onClick={navigate} />)}</nav>
-        <div className="sidebar-bottom"><div className="profile"><div className="avatar">AD</div><div><strong>Administrador</strong><small>Sabor & Cia</small></div></div></div>
+        <div className="sidebar-bottom"><div className="profile"><div className="avatar">AD</div><div><strong>Administrador</strong><small>Lanchonete</small></div></div></div>
       </aside>
       <main className="content">
         <header className="topbar"><div className="breadcrumb"><span>Início</span><b>/</b><strong>{page}</strong></div><button className="refresh-button" onClick={() => void loadData()}>↻ Atualizar</button></header>
@@ -106,7 +106,7 @@ function PageContent(props: { page: Page; orders: Order[]; products: Product[]; 
 }
 
 function Header({ title, subtitle, action }: { title: string; subtitle: string; action?: React.ReactNode }) {
-  return <section className="page-heading"><div><p className="eyebrow">SABOR & CIA</p><h1>{title}</h1><p className="subheading">{subtitle}</p></div>{action}</section>
+  return <section className="page-heading"><div><p className="eyebrow">LANCHONETE</p><h1>{title}</h1><p className="subheading">{subtitle}</p></div>{action}</section>
 }
 
 function Overview({ orders, products, categories, customers, navigate, onNewOrder }: Parameters<typeof PageContent>[0]) {
